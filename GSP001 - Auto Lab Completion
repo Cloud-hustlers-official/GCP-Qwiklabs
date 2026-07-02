@@ -1,0 +1,142 @@
+#!/bin/bash
+ 
+echo "=========================================="
+echo "       GSP001 - Auto Lab Completion"
+echo "=========================================="
+ 
+# ----------- FETCH ZONE & REGION -----------
+echo ""
+echo "[1/6] Fetching Zone and Region from project metadata..."
+ 
+export ZONE=$(gcloud compute project-info describe --format="value(commonInstanceMetadata.items[google-compute-default-zone])")
+export REGION=$(gcloud compute project-info describe --format="value(commonInstanceMetadata.items[google-compute-default-region])")
+ 
+if [[ -z "$ZONE" || -z "$REGION" ]]; then
+  echo "ERROR: Could not auto-detect Zone/Region. Exiting."
+  exit 1
+fi
+ 
+echo "✅ Zone  : $ZONE"
+echo "✅ Region: $REGION"
+ 
+# ----------- SET DEFAULTS -----------
+echo ""
+echo "[2/6] Setting project region and zone defaults..."
+ 
+gcloud config set compute/region $REGION --quiet
+gcloud config set compute/zone $ZONE --quiet
+ 
+if [[ $? -ne 0 ]]; then
+  echo "❌ Failed to set region/zone config. Exiting."
+  exit 1
+fi
+ 
+echo "✅ Config set successfully."
+ 
+# ----------- CHECKPOINT 1a: CREATE gcelab VM -----------
+echo ""
+echo "[3/6] Creating VM: gcelab with NGINX startup script..."
+ 
+# Check if already exists
+EXISTING=$(gcloud compute instances list --filter="name=gcelab zone:$ZONE" --format="value(name)" 2>/dev/null)
+ 
+if [[ "$EXISTING" == "gcelab" ]]; then
+  echo "⚠️  VM 'gcelab' already exists. Skipping creation."
+else
+  gcloud compute instances create gcelab \
+    --machine-type=e2-medium \
+    --zone=$ZONE \
+    --image-family=debian-11 \
+    --image-project=debian-cloud \
+    --tags=http-server \
+    --metadata=startup-script='#! /bin/bash
+apt-get update
+apt-get install -y nginx
+service nginx start
+systemctl enable nginx' --quiet
+ 
+  if [[ $? -ne 0 ]]; then
+    echo "❌ Failed to create VM 'gcelab'. Exiting."
+    exit 1
+  fi
+  echo "✅ VM 'gcelab' created successfully."
+fi
+ 
+# ----------- CHECKPOINT 1b: FIREWALL RULE -----------
+echo ""
+echo "[4/6] Creating firewall rule for HTTP traffic..."
+ 
+EXISTING_FW=$(gcloud compute firewall-rules list --filter="name=allow-http" --format="value(name)" 2>/dev/null)
+ 
+if [[ "$EXISTING_FW" == "allow-http" ]]; then
+  echo "⚠️  Firewall rule 'allow-http' already exists. Skipping."
+else
+  gcloud compute firewall-rules create allow-http \
+    --direction=INGRESS \
+    --action=ALLOW \
+    --rules=tcp:80 \
+    --target-tags=http-server --quiet
+ 
+  if [[ $? -ne 0 ]]; then
+    echo "❌ Failed to create firewall rule. Exiting."
+    exit 1
+  fi
+  echo "✅ Firewall rule created successfully."
+fi
+ 
+# ----------- VERIFY CHECKPOINT 1 -----------
+echo ""
+echo "[5/6] Verifying Checkpoint 1 (gcelab + NGINX)..."
+ 
+VM_STATUS=$(gcloud compute instances describe gcelab \
+  --zone=$ZONE \
+  --format="value(status)" 2>/dev/null)
+ 
+FW_STATUS=$(gcloud compute firewall-rules describe allow-http \
+  --format="value(name)" 2>/dev/null)
+ 
+if [[ "$VM_STATUS" == "RUNNING" && "$FW_STATUS" == "allow-http" ]]; then
+  echo "✅ Checkpoint 1 PASSED — gcelab is RUNNING, firewall rule exists."
+else
+  echo "❌ Checkpoint 1 FAILED — VM status: $VM_STATUS | Firewall: $FW_STATUS"
+  exit 1
+fi
+ 
+# ----------- CHECKPOINT 2: CREATE gcelab2 -----------
+echo ""
+echo "[6/6] Creating VM: gcelab2 with gcloud..."
+ 
+EXISTING2=$(gcloud compute instances list --filter="name=gcelab2 zone:$ZONE" --format="value(name)" 2>/dev/null)
+ 
+if [[ "$EXISTING2" == "gcelab2" ]]; then
+  echo "⚠️  VM 'gcelab2' already exists. Skipping creation."
+else
+  gcloud compute instances create gcelab2 \
+    --machine-type=e2-medium \
+    --zone=$ZONE --quiet
+ 
+  if [[ $? -ne 0 ]]; then
+    echo "❌ Failed to create VM 'gcelab2'. Exiting."
+    exit 1
+  fi
+  echo "✅ VM 'gcelab2' created successfully."
+fi
+ 
+# ----------- VERIFY CHECKPOINT 2 -----------
+VM2_STATUS=$(gcloud compute instances describe gcelab2 \
+  --zone=$ZONE \
+  --format="value(status)" 2>/dev/null)
+ 
+if [[ "$VM2_STATUS" == "RUNNING" ]]; then
+  echo "✅ Checkpoint 2 PASSED — gcelab2 is RUNNING."
+else
+  echo "❌ Checkpoint 2 FAILED — VM status: $VM2_STATUS"
+  exit 1
+fi
+ 
+# ----------- DONE -----------
+echo ""
+echo "=========================================="
+echo "   ✅ ALL STEPS COMPLETED SUCCESSFULLY!"
+echo "   👉 Go click 'Check my progress' in lab"
+echo "=========================================="
