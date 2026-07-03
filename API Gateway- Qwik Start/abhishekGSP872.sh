@@ -19,11 +19,11 @@ clear
 
 echo "${BLUE_TEXT}${BOLD_TEXT}=======================================${RESET_FORMAT}"
 echo "${BLUE_TEXT}${BOLD_TEXT}         INITIATING EXECUTION...        ${RESET_FORMAT}"
-echo "${BLUE_TEXT}${BOLD_TEXT}  Welcome to Dr. Abhishek's Cloud Lab  ${RESET_FORMAT}"
+echo "${BLUE_TEXT}${BOLD_TEXT}  Welcome to Cloud hustlers Cloud Lab  ${RESET_FORMAT}"
 echo "${BLUE_TEXT}${BOLD_TEXT}=======================================${RESET_FORMAT}"
 echo
 echo "${CYAN_TEXT}Please like, share and subscribe to:${RESET_FORMAT}"
-echo "${MAGENTA_TEXT}https://www.youtube.com/@drabhishek.5460/videos${RESET_FORMAT}"
+echo "${MAGENTA_TEXT}https://https://www.youtube.com/@CloudHustlers/videos${RESET_FORMAT}"
 echo
 
 # Instruction for entering the region
@@ -222,6 +222,6 @@ echo
 echo "${CYAN_TEXT}${BOLD_TEXT}Thank you for completing this lab!${RESET_FORMAT}"
 echo
 echo "${RED_TEXT}${BOLD_TEXT}For more cloud tutorials, subscribe to:${RESET_FORMAT}"
-echo "${BLUE_TEXT}${BOLD_TEXT}Dr. Abhishek's YouTube Channel${RESET_FORMAT}"
-echo "${MAGENTA_TEXT}https://www.youtube.com/@drabhishek.5460/videos${RESET_FORMAT}"
+echo "${BLUE_TEXT}${BOLD_TEXT}Cloud Hustlers YouTube Channel${RESET_FORMAT}"
+echo "${MAGENTA_TEXT}https://www.youtube.com/@CloudHustlers/videos${RESET_FORMAT}"
 echo
