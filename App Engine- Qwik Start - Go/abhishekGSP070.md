@@ -16,7 +16,7 @@
 ```bash
 
 
-curl -LO https://raw.githubusercontent.com/Itsabhishek7py/GoogleCloudSkillsboost/refs/heads/main/App%20Engine%3A%20Qwik%20Start%20-%20Go/abhishekGSP070.sh
+curl -LO https://raw.githubusercontent.com/Cloud-hustlers-official/GCP-Qwiklabs/refs/heads/main/App%20Engine-%20Qwik%20Start%20-%20Go/abhishekGSP070.sh
 sudo chmod +x abhishekGSP070.sh
 ./abhishekGSP070.sh
 ```
@@ -28,5 +28,4 @@ sudo chmod +x abhishekGSP070.sh
 
 Connect with fellow cloud enthusiasts, ask questions, and share your learning journey.  
 
-[![Telegram](https://img.shields.io/badge/Telegram_Group-2CA5E0?style=for-the-badge&logo=telegram&logoColor=white)](https://t.me/+gBcgRTlZLyM4OGI1)
-[![YouTube](https://img.shields.io/badge/Subscribe-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://www.youtube.com/@drabhishek.5460?sub_confirmation=1)  
+[![YouTube](https://img.shields.io/badge/Subscribe-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://www.youtube.com/@CloudHustlers?sub_confirmation=1)  
