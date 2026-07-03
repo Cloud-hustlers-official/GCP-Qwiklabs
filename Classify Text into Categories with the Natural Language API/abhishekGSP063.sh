@@ -16,7 +16,7 @@ UNDERLINE='\033[4m'
 
 # Box drawing characters
 BOX_TOP="${BLUE}╔══════════════════════════════════════════════════╗${NC}"
-BOX_MID="${BLUE}║      Welcome to Dr abhishek Channel                                            ║${NC}"
+BOX_MID="${BLUE}║      Welcome to Cloud Hustlers Channel                                            ║${NC}"
 BOX_BOT="${BLUE}╚══════════════════════════════════════════════════╝${NC}"
 
 clear
@@ -122,5 +122,5 @@ echo -e "╚══════════════════════�
 
 # Footer with channel information
 echo -e "\n${WHITE}${BOLD}For more cloud related  content:${NC}"
-echo -e "${RED}${BOLD}► Subscribe to Dr. Abhishek's YouTube Channel:${NC}"
-echo -e "${BLUE}${UNDERLINE}https://www.youtube.com/@drabhishek.5460/playlists${NC}\n"
+echo -e "${RED}${BOLD}► Subscribe to Cloud Hustlers YouTube Channel:${NC}"
+echo -e "${BLUE}${UNDERLINE}https://www.youtube.com/@CloudHustlers/playlists${NC}\n"
