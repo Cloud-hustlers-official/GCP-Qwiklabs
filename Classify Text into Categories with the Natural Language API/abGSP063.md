@@ -25,7 +25,7 @@ In this hands-on lab, you will learn how to use the **Google Cloud Console** to:
 # Download the script
 
 ```
-curl -LO https://raw.githubusercontent.com/Itsabhishek7py/GoogleCloudSkillsboost/refs/heads/main/Classify%20Text%20into%20Categories%20with%20the%20Natural%20Language%20API/abhishekGSP063.sh
+curl -LO https://raw.githubusercontent.com/Cloud-hustlers-official/GCP-Qwiklabs/refs/heads/main/Classify%20Text%20into%20Categories%20with%20the%20Natural%20Language%20API/abhishekGSP063.sh
 
 sudo chmod +x abhishekGSP063.sh
 
@@ -36,5 +36,3 @@ sudo chmod +x abhishekGSP063.sh
 
 
 ## Join the Community
-
-[![Telegram](https://img.shields.io/badge/Join-Telegram_Group-blue?style=for-the-badge&logo=telegram)](https://t.me/+gBcgRTlZLyM4OGI1) - Connect with fellow cloud enthusiasts, ask questions, and share your learning journey.
